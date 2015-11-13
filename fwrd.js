@@ -1,3 +1,62 @@
+// Instructions:
+// 1. Navigate to http://www.fwrd.com/brand-kanye-west-x-adidas-originals/2f948a/
+// OR the kanye-west-x-adidas-original landing page (they might change the 2f948a at the end of the URL)
+
+// 2. Enable scripts
+// 3. Refresh page
+
+
+
+// ==UserScript==
+// @name         Fwrd yeezy s1 page
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  try to take over the world!
+// @author       Richard
+// @match        http://www.fwrd.com/brand-kanye-west-x-adidas-originals/*
+// @grant        none
+// ==/UserScript==
+/* jshint -W097 */
+
+// Your code here...
+
+
+$(function(){
+	setTimeout(function(){}, 3000);
+	runScript0();
+});
+
+function runScript0(){
+	var keywords = ['350'];
+	var continueYeezy = false;
+	var yeezyLink;
+
+	$.each($('li.item'), function(i, ele){ 
+		var yeezyFound = true;
+		for (j in keywords){
+			if($(ele).find('.product_name').text().toLowerCase().indexOf(keywords[j]) <= -1){
+				yeezyFound = false;
+				break;
+			}
+		}
+
+		if (yeezyFound){
+			continueYeezy = true;
+			yeezyLink = $(ele);
+			return false;
+		}
+	});
+
+	if (continueYeezy){
+		yeezyLink.find('img').click();
+	}
+	else{
+		location.reload();
+	}
+}
+
+
+
 // ==UserScript==
 // @name         Fwrd shoe page
 // @namespace    http://tampermonkey.net/
@@ -8,7 +67,6 @@
 // @grant        none
 // ==/UserScript==
 /* jshint -W097 */
-'use strict';
 
 // Your code here...
 
@@ -22,22 +80,27 @@ function runScript1(){
 	var bagButton = $('button.addtobag');
 	if (bagButton.length > 0 && bagButton.text().toLowerCase().indexOf("add to bag") > -1){
 
-		// Choose size
-		var maxsize = 16;
-		var minsize = 6; 
-		// Loops through sizes until one available
-		while (maxsize >= minsize){
-			if ($('#size-select option[value='+maxsize+']').length > 0 && $('#size-select option[value='+maxsize+']').data('is-oos') == false){
-				$('#size-select')[0].value = maxsize;
-				break;
-			}
-			else
+		var sizeSelected = false;
+		$.each($('#size-select option').get().reverse(), function(i, ele){
+			console.log(ele.value.toLowerCase());
+			var maxsize = 12;
+			var minsize = 11;
+			while(maxsize >= minsize){
+				if(ele.value.toLowerCase().indexOf(maxsize) > -1){
+					$('#size-select')[0].value = ele.value;
+					sizeSelected = true;
+					break;
+				}
+
 				maxsize-= 0.5;
-		}
+			}
+
+			if (sizeSelected)
+				return false;
+		});
+
 		// If size  chosen, clicks add to bag button
-		if ($('#size-select')[0].value.length <= 0)
-			alert("There are no sizes available between " + minsize + " and " + maxsize);
-		else{
+		if (sizeSelected){
 			bagButton.click();
 
 			var wait1 = setInterval(function() {
@@ -46,8 +109,9 @@ function runScript1(){
 					clearInterval(wait1);
 				}
 			}, 100);
-
 		}
+		else
+			location.reload();
 
 	}
 	else{
@@ -67,7 +131,6 @@ function runScript1(){
 // @grant        none
 // ==/UserScript==
 /* jshint -W097 */
-'use strict';
 
 // Your code here...
 
@@ -102,7 +165,6 @@ function runScript2(){
 // @grant        none
 // ==/UserScript==
 /* jshint -W097 */
-'use strict';
 
 // Your code here...
 $(function(){
@@ -135,7 +197,6 @@ function runScript3(){
 // @grant        none
 // ==/UserScript==
 /* jshint -W097 */
-'use strict';
 
 // Your code here...
 $(function(){

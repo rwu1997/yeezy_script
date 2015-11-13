@@ -4,7 +4,7 @@
 // @version      0.1
 // @description  try to take over the world!
 // @author       Richard
-// @match        http://store.y-3.com/special/yeezy#/
+// @match        http://store.y-3.com/special/yeezy/*
 // @grant        none
 // ==/UserScript==
 /* jshint -W097 */
@@ -19,7 +19,7 @@ $(function(){
 
 function runScript1(){
 	// Mandatory keywords
-	var keywords = ['yeezy', '850'];
+	var keywords = ['yeezy', '350'];
 
 	var continueYeezy = false;
 	var yeezyLink;

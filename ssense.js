@@ -19,14 +19,14 @@ $(function(){
 
 function runScript1(){
 
-	var keywords = ['trenchcoat'];
+	var keywords = ['350'];
 	var continueYeezy = false;
 	var yeezyLink;
 
 	$.each($('.browsing-product-item'), function(i, ele){ 
 		var yeezyFound = true;
-		for (i in keywords){
-			if($(ele).data('product-name').toLowerCase().indexOf(keywords[i]) <= -1){
+		for (j in keywords){
+			if($(ele).data('product-name').toLowerCase().indexOf(keywords[j]) <= -1){
 				yeezyFound = false;
 				break;
 			}
